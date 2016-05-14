@@ -1,6 +1,21 @@
 module AccountControllerRecaptchaPatch
   def self.included(base)
     base.class_eval do
+
+      def login
+        if request.get?
+          if User.current.logged?
+            redirect_back_or_default home_url, :referer => true
+          end
+        else
+          if Setting.plugin_recaptcha['recaptcha_private_key'].nil? or verify_recaptcha(:model => @user, :private_key => Setting.plugin_recaptcha['recaptcha_private_key'])
+            authenticate_user
+          end
+        end
+      rescue AuthSourceException => e
+        logger.error "An error occured when authenticating #{params[:username]}: #{e.message}"
+        render_error :message => e.message
+      end
       def register
         (redirect_to(home_url); return) unless Setting.self_registration? || session[:auth_source_registration]
         if request.get?
@@ -27,14 +42,14 @@ module AccountControllerRecaptchaPatch
             unless user_params[:identity_url].present? && user_params[:password].blank? && user_params[:password_confirmation].blank?
               @user.password, @user.password_confirmation = user_params[:password], user_params[:password_confirmation]
             end
-            if verify_recaptcha(:model => @user, :private_key => Setting.plugin_recaptcha['recaptcha_private_key'])
+            if Setting.plugin_recaptcha['recaptcha_private_key'].nil?  or verify_recaptcha(:model => @user, :private_key => Setting.plugin_recaptcha['recaptcha_private_key'])
               case Setting.self_registration
-              when '1'
-                register_by_email_activation(@user)
-              when '3'
-                register_automatically(@user)
-              else
-                register_manually_by_administrator(@user)
+                when '1'
+                  register_by_email_activation(@user)
+                when '3'
+                  register_automatically(@user)
+                else
+                  register_manually_by_administrator(@user)
               end
             else
               flash.delete(:recaptcha_error)

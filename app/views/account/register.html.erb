@@ -26,7 +26,13 @@
   <p><%= custom_field_tag_with_label :user, value %></p>
 <% end %>
 
-<%= recaptcha_tags :public_key => Setting.plugin_recaptcha['recaptcha_public_key'], :ssl => true %>
+  <%
+     ENV['RECAPTCHA_PUBLIC_KEY'] = Setting.plugin_recaptcha['recaptcha_public_key']
+     ENV['RECAPTCHA_PRIVATE_KEY'] = Setting.plugin_recaptcha['recaptcha_private_key']
+     if ENV['RECAPTCHA_PRIVATE_KEY']
+  %>
+      <%= recaptcha_tags :public_key => ENV['RECAPTCHA_PUBLIC_KEY'] , :ssl => true %>
+  <% end %>
 </div>
 
 <%= submit_tag l(:button_submit) %>
