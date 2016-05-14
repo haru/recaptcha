@@ -17,7 +17,7 @@
           <%
              ENV['RECAPTCHA_PUBLIC_KEY'] = Setting.plugin_recaptcha['recaptcha_public_key']
              ENV['RECAPTCHA_PRIVATE_KEY'] = Setting.plugin_recaptcha['recaptcha_private_key']
-             if ENV['RECAPTCHA_PRIVATE_KEY']
+             if ENV['RECAPTCHA_PRIVATE_KEY'].presence
           %>
               <%= recaptcha_tags :public_key => ENV['RECAPTCHA_PUBLIC_KEY'] , :ssl => true %>
           <% end %>

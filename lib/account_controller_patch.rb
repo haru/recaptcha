@@ -8,7 +8,7 @@ module AccountControllerRecaptchaPatch
             redirect_back_or_default home_url, :referer => true
           end
         else
-          if Setting.plugin_recaptcha['recaptcha_private_key'].nil? or verify_recaptcha(:model => @user, :private_key => Setting.plugin_recaptcha['recaptcha_private_key'])
+          if Setting.plugin_recaptcha['recaptcha_private_key'].presence or verify_recaptcha(:model => @user, :private_key => Setting.plugin_recaptcha['recaptcha_private_key'])
             authenticate_user
           end
         end
