@@ -1,1 +1,1 @@
-gem 'recaptcha'
+gem "recaptcha", require: "recaptcha/rails"
