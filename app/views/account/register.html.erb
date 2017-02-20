@@ -31,7 +31,7 @@
      ENV['RECAPTCHA_PRIVATE_KEY'] = Setting.plugin_recaptcha['recaptcha_private_key']
      if ENV['RECAPTCHA_PRIVATE_KEY'].presence
   %>
-      <%= recaptcha_tags :public_key => ENV['RECAPTCHA_PUBLIC_KEY'] %>
+      <%= recaptcha_tags :hl=>current_language, :site_key => ENV['RECAPTCHA_PUBLIC_KEY'] %>
   <% end %>
 </div>
 
