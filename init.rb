@@ -1,4 +1,4 @@
-require 'account_controller_patch'
+require 'account_controller_recaptcha_patch'
 
 Redmine::Plugin.register :recaptcha do
   name 'Recaptcha plugin'
