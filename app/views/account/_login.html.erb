@@ -15,16 +15,16 @@
       <tr>
         <td colspan="2">
           <%
-             ENV['RECAPTCHA_PUBLIC_KEY'] = Setting.plugin_recaptcha['recaptcha_public_key']
-             ENV['RECAPTCHA_PRIVATE_KEY'] = Setting.plugin_recaptcha['recaptcha_private_key']
-             if ENV['RECAPTCHA_PRIVATE_KEY'].presence and params[:controller] != 'account'
+             ENV['RECAPTCHA_SITE_KEY'] = Setting.plugin_recaptcha['recaptcha_site_key']
+             ENV['RECAPTCHA_SECRET_KEY'] = Setting.plugin_recaptcha['recaptcha_secret_key']
+             if ENV['RECAPTCHA_SECRET_KEY'].presence and params[:controller] != 'account'
           %>
-              <%= recaptcha_tags :hl=>current_language, :site_key => ENV['RECAPTCHA_PUBLIC_KEY']%>
+              <%= recaptcha_tags :hl=>current_language, :site_key => ENV['RECAPTCHA_SITE_KEY']%>
           <% end %>
         </td>
       </tr>
     </table>
-    <div id = "optional_login_fields" style = "top = 10px; white-space:nowrap">
+    <div id = "optional_login_fields" style = "top:10px; white-space:nowrap">
       <% if Setting.openid? %>
         <%= text_field_tag "openid_url", nil, :placeholder => l(:field_identity_url), :tabindex => '1' %>
       <% end %>
