@@ -14,11 +14,11 @@
   <tr>
     <td colspan="2">
       <%
-         ENV['RECAPTCHA_PUBLIC_KEY'] = Setting.plugin_recaptcha['recaptcha_public_key']
-         ENV['RECAPTCHA_PRIVATE_KEY'] = Setting.plugin_recaptcha['recaptcha_private_key']
-         if ENV['RECAPTCHA_PRIVATE_KEY'].presence
+         ENV['RECAPTCHA_SITE_KEY'] = Setting.plugin_recaptcha['recaptcha_site_key']
+         ENV['RECAPTCHA_SECRET_KEY'] = Setting.plugin_recaptcha['recaptcha_secret_key']
+         if ENV['RECAPTCHA_SECRET_KEY'].presence
       %>
-          <%= recaptcha_tags :hl=>current_language, :site_key => ENV['RECAPTCHA_PUBLIC_KEY'] %>
+          <%= recaptcha_tags :hl=>current_language, :site_key => ENV['RECAPTCHA_SITE_KEY'] %>
       <% end %>
     </td>
   </tr>
