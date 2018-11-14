@@ -1,21 +1,6 @@
 module AccountControllerRecaptchaPatch
   def self.included(base)
     base.class_eval do
-
-      def login
-        if request.get?
-          if User.current.logged?
-            redirect_back_or_default home_url, :referer => true
-          end
-        else
-          if verify_recaptcha(:model => @user, :secret_key => Setting.plugin_recaptcha['recaptcha_secret_key'])
-            authenticate_user
-          end
-        end
-      rescue AuthSourceException => e
-        logger.error "An error occured when authenticating #{params[:username]}: #{e.message}"
-        render_error :message => e.message
-      end
       def register
         (redirect_to(home_url); return) unless Setting.self_registration? || session[:auth_source_registration]
         if request.get?
