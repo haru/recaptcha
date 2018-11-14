@@ -1,7 +1,7 @@
 Recaptcha Redmine 3.x plugin
 ===========================
 
--- Redmine 3.x plugin that adds a recaptcha to the account registration page.
+## Redmine 3.x plugin that adds a recaptcha to the account registration page.
 
 - Installation: just clone it to your plugins directory, run 'bundle install' 
 - If recaptcha gem doesn't install which happens some times do gem install recaptcha
@@ -11,6 +11,6 @@ Recaptcha Redmine 3.x plugin
 - Compatibility: tested with Redmine 3.x
 - Copyright: MIT License
 
--- Fork features:
+## Fork features:
 
 - Recaptcha has been disabled in the login page.
